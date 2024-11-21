@@ -1,6 +1,6 @@
 name: 'Terraform Configuration Drift Detection'
 
-
+on: push
 #Special permissions required for OIDC authentication
 permissions:
   id-token: write
