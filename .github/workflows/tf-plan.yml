@@ -1,8 +1,9 @@
-name: 'Terraform Configuration Drift Detection'
+name: 'Terraform Configuration Build'
 
 on: push
 
-
+permissions:
+  id-token: write # Require write permission to Fetch an OIDC token.
 #These environment variables are used by the terraform azure provider to setup OIDD authenticate. 
 env:
   ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
