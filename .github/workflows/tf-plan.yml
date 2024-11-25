@@ -12,8 +12,8 @@ env:
   ARM_USE_OIDC: true
 
 jobs:
-  terraform-plan:
-    name: 'Terraform Plan'
+  terraform-build:
+    name: 'Terraform Build'
     runs-on: ubuntu-latest
     environment: dev
     defaults:
@@ -53,14 +53,18 @@ jobs:
         terraform plan \
           -out=tfplan \
           -var-file='./variables/dev.eus.variables.tfvars' \
-      
-    # Save plan to artifacts  
-    - name: Publish Terraform Plan
-      uses: actions/upload-artifact@v4
-      with:
-        name: infrastructure
-        if-no-files-found: error
-        path: infrastructure
+  infrastructure-publish:
+    runs-on: ubuntu-latest
+    name: 'Publish Infrastructure'
+    steps:
+      - id: publish-infrastructure
+        uses: './.github/jobs/upload-artifact-job'
+        with:
+          name: 'infrastructure'
+          path: './infrastructure'
+
+
+
         
         
 
