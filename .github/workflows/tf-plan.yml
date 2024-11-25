@@ -58,7 +58,7 @@ jobs:
     name: 'Publish Infrastructure'
     steps:
       - id: publish-infrastructure
-        uses: './.github/jobs/upload-artifact-job'
+        uses: './.github/jobs/upload-artifact-job.yml'
         with:
           name: 'infrastructure'
           path: './infrastructure'
