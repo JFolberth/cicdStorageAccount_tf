@@ -9,7 +9,6 @@ runs:
   steps: 
   - name: Setup Terraform
     uses: hashicorp/setup-terraform@v3
-    working-directory: ./infrastructure
     with:
       terraform_wrapper: false
 
