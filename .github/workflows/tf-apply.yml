@@ -6,18 +6,6 @@ on:
           description: 'Environment Name'
           required: true
           type: string
-        AZURE_CLIENT_ID:
-            description: 'Azure Client ID'
-            required: true
-            type: string
-        AZURE_SUBSCRIPTION_ID:
-            description: 'Azure Subscription ID'
-            required: true
-            type: string
-        AZURE_TENANT_ID:
-            description: 'Azure Tenant ID'
-            required: true
-            type: string
 
 
 jobs:
@@ -34,9 +22,9 @@ jobs:
         contents: read
     #These environment variables are used by the terraform azure provider to setup OIDD authenticate. 
     env:
-        ARM_CLIENT_ID: "${{ inputs.AZURE_CLIENT_ID }}"
-        ARM_SUBSCRIPTION_ID: "${{ inputs.AZURE_SUBSCRIPTION_ID }}"
-        ARM_TENANT_ID: "${{ inputs.AZURE_TENANT_ID }}"
+        ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
+        ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+        ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
         ARM_USE_OIDC: true       
     steps:
     # Checkout the repository to the GitHub Actions runner
