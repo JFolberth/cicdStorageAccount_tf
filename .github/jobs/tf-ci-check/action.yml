@@ -1,0 +1,16 @@
+name: 'Terraform CI Check'
+description: 'Run CI Checks for Terraform'
+runs:
+  using: composite
+  steps: 
+  - name: Setup Terraform
+    uses: hashicorp/setup-terraform@v3
+    with:
+      terraform_wrapper: false
+
+  # Checks that all Terraform configuration files adhere to a canonical format
+  # Will fail the build if not
+  - name: Terraform Format
+    shell: bash
+    working-directory: ./infrastructure
+    run: terraform fmt -check

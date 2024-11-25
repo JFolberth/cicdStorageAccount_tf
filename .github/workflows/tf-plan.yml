@@ -12,11 +12,10 @@ env:
   ARM_USE_OIDC: true
 
 jobs:
-  terraform-build:
-    name: 'Terraform Build'
+  terraform-build-dev:
+    name: 'Terraform Build Dev'
     runs-on: ubuntu-latest
     environment: dev
-
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
@@ -28,8 +27,31 @@ jobs:
         backendResourceGroupName: ${{ vars.BACKEND_RESOURCE_GROUP_NAME}}
         backendStorageAccountName: ${{ vars.BACKEND_STORAGE_ACCOUNT_NAME }}
         backendStorageContainerName: ${{ vars.BACKEND_STORAGE_CONTAINER_NAME }}
-
-
+  terraform-build-tst:
+    name: 'Terraform Build Tst'
+    runs-on: ubuntu-latest
+    environment: tst
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v4
+    - id: publish-infrastructure
+      uses: './.github/jobs/tf-plan'
+      with:
+        environmentName: 'tst'
+        backendResourceGroupName: ${{ vars.BACKEND_RESOURCE_GROUP_NAME}}
+        backendStorageAccountName: ${{ vars.BACKEND_STORAGE_ACCOUNT_NAME }}
+        backendStorageContainerName: ${{ vars.BACKEND_STORAGE_CONTAINER_NAME }}
+                      
+  terraform-ci:
+      name: 'Terraform CI Checks'
+      runs-on: ubuntu-latest
+      steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v4
+      - id: terraform-ci-check
+        uses: './.github/jobs/tf-ci-check'
   infrastructure-publish:
     runs-on: ubuntu-latest
     name: 'Publish Infrastructure'
