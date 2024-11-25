@@ -35,4 +35,4 @@ runs:
     run: |
       terraform plan \
         -out=tfplan \
-        -var-file='./variables/${{input.environmentName }}.eus.variables.tfvars' \
+        -var-file='./variables/${{inputs.environmentName }}.eus.variables.tfvars' \
