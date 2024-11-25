@@ -72,6 +72,7 @@ jobs:
     uses: ./.github/workflows/tf-apply.yml
     with:
       environment: "dev"
+    secrets: inherit
 
 
 
