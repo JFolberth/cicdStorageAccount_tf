@@ -1,0 +1,52 @@
+name: 'Terraform Configuration Deploy'
+on:
+    workflow_call:
+      inputs:
+        environment:
+          description: 'Environment Name'
+          required: true
+          type: string
+
+jobs:
+  terraform-deploy:
+    name: 'Terraform Deploy ${{inputs.environment}}'
+    runs-on: ubuntu-latest
+    environment: ${{inputs.environment}}\
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./infrastructure
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_wrapper: false
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      working-directory: ./infrastructure
+      run: |
+       terraform init \
+            -backend-config="resource_group_name=${{ inputs.backendResourceGroupName }}"   \
+            -backend-config="storage_account_name=${{ inputs.backendStorageAccountName }}" \
+            -backend-config="container_name=${{ inputs.backendStorageContainerName }}" \
+            -backend-config="key=terraform.tfstate"     \
+
+    # Generates an execution plan for Terraform
+    # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
+    - name: Terraform Plan
+      id: tf-plan
+      run: |
+       terraform plan \
+            -out=tfplan \
+            -var-file='variables/${{inputs.environmentName }}.eus.variables.tfvars' \
+
+
+
+        
+        
+
+    
