@@ -11,7 +11,7 @@ jobs:
   terraform-deploy:
     name: 'Terraform Deploy ${{inputs.environment}}'
     runs-on: ubuntu-latest
-    environment: ${{inputs.environment}}\
+    environment: ${{inputs.environment}}
     defaults:
       run:
         shell: bash
