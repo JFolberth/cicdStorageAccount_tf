@@ -17,9 +17,7 @@ inputs:
 runs:
   using: composite
   steps: 
-  # Checkout the repository to the GitHub Actions runner
-  - name: Checkout
-    uses: actions/checkout@v4  
+
   # Save plan to artifacts  
   - name: Publish Terraform Plan
     uses: actions/upload-artifact@v4

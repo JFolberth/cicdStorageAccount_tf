@@ -57,6 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Publish Infrastructure'
     steps:
+      - uses: actions/checkout@v4
       - id: publish-infrastructure
         uses: './.github/jobs/upload-artifact-job'
         with:
