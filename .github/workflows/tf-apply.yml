@@ -30,9 +30,9 @@ jobs:
       working-directory: ./infrastructure
       run: |
        terraform init \
-            -backend-config="resource_group_name=${{ inputs.backendResourceGroupName }}"   \
-            -backend-config="storage_account_name=${{ inputs.backendStorageAccountName }}" \
-            -backend-config="container_name=${{ inputs.backendStorageContainerName }}" \
+            -backend-config="resource_group_name=${{ vars.backendResourceGroupName }}"   \
+            -backend-config="storage_account_name=${{ vars.backendStorageAccountName }}" \
+            -backend-config="container_name=${{ vars.backendStorageContainerName }}" \
             -backend-config="key=terraform.tfstate"     \
 
     # Generates an execution plan for Terraform
