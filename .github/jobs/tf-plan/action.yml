@@ -1,6 +1,9 @@
 name: 'Publish Artifact'
 description: 'Publish an artifact for a GitHub Actions workflow'
-    
+inputs:
+  environmentName: 
+    description: 'The environment name for the .tfvars'
+    required: true
 runs:
   using: composite
   steps: 
@@ -32,4 +35,4 @@ runs:
     run: |
       terraform plan \
         -out=tfplan \
-        -var-file='./variables/dev.eus.variables.tfvars' \
+        -var-file='./variables/${{input.environmentName }}.eus.variables.tfvars' \

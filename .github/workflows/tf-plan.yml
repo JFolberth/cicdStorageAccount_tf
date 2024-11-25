@@ -25,6 +25,11 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v4
+    - id: publish-infrastructure
+      uses: './.github/jobs/tf-plan'
+      with:
+        environmentName: 'dev'
+
 
   infrastructure-publish:
     runs-on: ubuntu-latest
