@@ -6,6 +6,18 @@ on:
           description: 'Environment Name'
           required: true
           type: string
+        AZURE_CLIENT_ID:
+            description: 'Azure Client ID'
+            required: true
+            type: string
+        AZURE_SUBSCRIPTION_ID:
+            description: 'Azure Subscription ID'
+            required: true
+            type: string
+        AZURE_TENANT_ID:
+            description: 'Azure Tenant ID'
+            required: true
+            type: string
 
 
 jobs:
