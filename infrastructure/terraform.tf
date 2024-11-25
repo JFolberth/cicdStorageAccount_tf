@@ -1,6 +1,6 @@
 terraform {
   required_version = ">= 1.5.2"
-  backend  "azurerm"{
+  backend "azurerm" {
     resource_group_name  = "my-tf-remote-state-rg-name"
     storage_account_name = "my-tf-remote-state-sa-name"
     container_name       = "my-tf-remote-state-container-name"
