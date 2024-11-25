@@ -25,6 +25,9 @@ jobs:
       uses: './.github/jobs/tf-plan'
       with:
         environmentName: 'dev'
+        backendResourceGroupName: ${{ vars.BACKEND_RESOURCE_GROUP_NAME}}
+        backendStorageAccountName: ${{ vars.BACKEND_STORAGE_ACCOUNT_NAME }}
+        backendStorageContainerName: ${{ vars.BACKEND_STORAGE_CONTAINER_NAME }}
 
 
   infrastructure-publish:
