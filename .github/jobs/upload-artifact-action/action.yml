@@ -14,11 +14,13 @@ inputs:
     required: true
     default: 'error'
 
-    
-    # Save plan to artifacts  
-    - name: Publish Terraform Plan
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ inputs.name }}
-        if-no-files-found: ${{ inputs.if-no-files-found }}
-        path: ${{ inputs.path }}
+runs:
+  using: composite
+  steps:   
+  # Save plan to artifacts  
+  - name: Publish Terraform Plan
+    uses: actions/upload-artifact@v4
+    with:
+      name: ${{ inputs.name }}
+      if-no-files-found: ${{ inputs.if-no-files-found }}
+      path: ${{ inputs.path }}
