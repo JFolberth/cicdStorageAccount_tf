@@ -1,0 +1,35 @@
+name: 'Publish Artifact'
+description: 'Publish an artifact for a GitHub Actions workflow'
+    
+runs:
+  using: composite
+  steps: 
+  - name: Setup Terraform
+    uses: hashicorp/setup-terraform@v3
+    with:
+      terraform_wrapper: false
+
+  # Checks that all Terraform configuration files adhere to a canonical format
+  # Will fail the build if not
+  - name: Terraform Format
+    shell: bash
+    run: terraform fmt -check
+  # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+  - name: Terraform Init
+    shell: bash
+    run: |
+      terraform init \
+        -backend-config="resource_group_name=${{ vars.BACKEND_RESOURCE_GROUP_NAME }}"   \
+        -backend-config="storage_account_name=${{ vars.BACKEND_STORAGE_ACCOUNT_NAME }}" \
+        -backend-config="container_name=${{ vars.BACKEND_STORAGE_CONTAINER_NAME }}" \
+        -backend-config="key=terraform.tfstate"     \
+
+  # Generates an execution plan for Terraform
+  # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
+  - name: Terraform Plan
+    shell: bash
+    id: tf-plan
+    run: |
+      terraform plan \
+        -out=tfplan \
+        -var-file='./variables/dev.eus.variables.tfvars' \
