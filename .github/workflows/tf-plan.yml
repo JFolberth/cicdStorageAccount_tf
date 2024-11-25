@@ -63,20 +63,15 @@ jobs:
           name: 'infrastructure'
           path: './infrastructure'
   terraform-deploy-dev:
-    runs-on: ubuntu-latest
     name: terraform-deploy-dev
     needs: 
       - terraform-ci
       - infrastructure-publish
       - terraform-build-dev
       - terraform-build-tst
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Apply Terraform
-        uses: ./.github/workflows/tf-apply.yml
-        with:
-          environment: "dev"
+    uses: ./.github/workflows/tf-apply.yml
+    with:
+      environment: "dev"
 
 
 
