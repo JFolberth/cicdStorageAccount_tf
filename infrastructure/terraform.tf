@@ -5,7 +5,7 @@ terraform {
     storage_account_name = "my-tf-remote-state-sa-name"
     container_name       = "my-tf-remote-state-container-name"
     key                  = "my-state-file-name.tfstate"
-    storage_use_azuread = true
+    storage_use_azuread  = true
 
   }
   required_providers {
