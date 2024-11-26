@@ -30,29 +30,14 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
+    - id: publish-infrastructure
+      uses: './.github/jobs/tf-plan'
       with:
-        terraform_wrapper: false
+        environmentName: 'dev'
+        backendResourceGroupName: ${{ vars.BACKEND_RESOURCE_GROUP_NAME}}
+        backendStorageAccountName: ${{ vars.BACKEND_STORAGE_ACCOUNT_NAME }}
+        backendStorageContainerName: ${{ vars.BACKEND_STORAGE_CONTAINER_NAME }}
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      working-directory: ./infrastructure
-      run: |
-       terraform init \
-            -backend-config="resource_group_name=${{ vars.BACKEND_RESOURCE_GROUP_NAME }}"   \
-            -backend-config="storage_account_name=${{ vars.BACKEND_STORAGE_ACCOUNT_NAME }}" \
-            -backend-config="container_name=${{ vars.BACKEND_STORAGE_CONTAINER_NAME }}" \
-            -backend-config="key=terraform.tfstate"     \
-
-    # Generates an execution plan for Terraform
-    # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
-    - name: Terraform Plan
-      id: tf-plan
-      run: |
-       terraform plan \
-            -out=tfplan \
-            -var-file='variables/${{inputs.environment }}.eus.variables.tfvars' \
 
 
 
