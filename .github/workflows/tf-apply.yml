@@ -31,7 +31,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - id: publish-infrastructure
-      uses: './.github/jobs/tf-plan'
+      uses: './.github/jobs/tf-apply'
       with:
         environmentName: 'dev'
         backendResourceGroupName: ${{ vars.BACKEND_RESOURCE_GROUP_NAME}}
