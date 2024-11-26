@@ -16,7 +16,7 @@ inputs:
   workingDirectory:
     description: 'The working directory for the Terraform commands'
     required: true
-    default: 'infrastructure'
+    default: '/infrastructure'
   shell:
     description: 'The shell to use for the Terraform commands'
     required: true
