@@ -16,7 +16,7 @@ inputs:
   workingDirectory:
     description: 'The working directory for the Terraform commands'
     required: true
-    default: '/infrastructure'
+    default: './infrastructure'
   shell:
     description: 'The shell to use for the Terraform commands'
     required: true
@@ -32,7 +32,7 @@ runs:
   # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
   - name: Terraform Init
     shell: ${{ inputs.shell }}
-    working-directory: .${{ inputs.workingDirectory }}
+    working-directory: ${{ inputs.workingDirectory }}
     run: |
       terraform init \
         -backend-config="resource_group_name=${{ inputs.backendResourceGroupName }}"   \
