@@ -38,11 +38,11 @@ module "resource_group_module" {
 }
 
 module "avm-res-storage-storageaccount_module" {
-  source                          = "Azure/avm-res-storage-storageaccount/azurerm"
-  name                            = "sa${replace(local.name_suffix, "-", "")}"
-  location                        = var.resource_group_location
-  account_replication_type        = var.storage_account_replication_type
-  account_tier                    = var.storage_account_tier
-  resource_group_name             = module.resource_group_module.name
-  default_to_oauth_authentication = true
+  source                    = "Azure/avm-res-storage-storageaccount/azurerm"
+  name                      = "sa${replace(local.name_suffix, "-", "")}"
+  location                  = var.resource_group_location
+  account_replication_type  = var.storage_account_replication_type
+  account_tier              = var.storage_account_tier
+  resource_group_name       = module.resource_group_module.name
+  shared_access_key_enabled = false
 }
