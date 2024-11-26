@@ -57,5 +57,4 @@ runs:
     id: tf-apply
     run: |
       terraform apply \
-        -var-file='variables/${{inputs.environmentName }}.eus.variables.tfvars' 
-        -auto-approve \
+      -auto-approve "tfplan.tfplan" \
