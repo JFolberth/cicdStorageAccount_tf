@@ -57,4 +57,4 @@ runs:
     id: tf-apply
     run: |
       terraform apply \
-      -auto-approve "tfplan.tfplan" \
+      -auto-approve "tfplan" \
