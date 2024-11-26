@@ -32,7 +32,7 @@ runs:
   # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
   - name: Terraform Init
     shell: ${{ inputs.shell }}
-    working-directory: .${{ inputs.workingDirectory }}
+    working-directory: ${{ inputs.workingDirectory }}
     run: |
       terraform init \
         -backend-config="resource_group_name=${{ inputs.backendResourceGroupName }}"   \
@@ -50,3 +50,13 @@ runs:
       terraform plan \
         -out=tfplan \
         -var-file='variables/${{inputs.environmentName }}.eus.variables.tfvars' \
+
+  - name: Terraform Apply
+    shell: ${{ inputs.shell }}
+    working-directory: ${{ inputs.workingDirectory }}
+    id: tf-apply
+    run: |
+      terraform apply \
+        -out=tfplan \
+        -var-file='variables/${{inputs.environmentName }}.eus.variables.tfvars' 
+        -auto-approve \
